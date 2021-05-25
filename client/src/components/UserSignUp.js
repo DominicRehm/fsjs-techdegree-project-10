@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Context } from '../Context';
+import Cookies from 'js-cookie';
 
 import Header from './Header';
 
@@ -36,7 +37,22 @@ const UserSignUp = () => {
                 if (errors.length) {
                     setErrors([ errors ])
                 } else {
-                    history.push('/');
+                    AppContext.data.getUser(emailAddress, password)
+                        .then( user => {
+                            if (user === null) {
+                                setErrors('Sign-In was unsuccessfully');
+                            } else {
+                                // Set cookie
+                                Cookies.set('authUser', JSON.stringify(user), { expires: 1 });
+                                Cookies.set('authPassword', JSON.stringify(password), { expires: 1});
+                                AppContext.setAuthUser(user);
+                                history.push('/');
+                            };
+                        })
+                        .catch ( err => {
+                            console.log(err);
+                            history.push('/error');
+                        });
                 };
             })
             .catch ( err => {

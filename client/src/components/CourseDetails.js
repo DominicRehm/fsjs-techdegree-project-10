@@ -68,7 +68,7 @@ const CourseDetail = () => {
                     editMaterials(data.materialsNeeded);
                 };
             });
-    }, [AppContext.data, id]);
+    }, [AppContext.data, id, history]);
 
     return (
         <>

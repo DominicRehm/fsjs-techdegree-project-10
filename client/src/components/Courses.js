@@ -33,22 +33,23 @@ const Courses = () => {
                 console.log(error);
                 history.push('/error');
             })
-    }, [AppContext.data]);
-
-    // Create Courses Container
-    const coursesList = courses.map(course => 
-        <Link key={course.id} to={'/courses/' + course.id} className="course--module course--link">
-            <h2 className="course--label">Course</h2>
-            <h3 className="course--title">{course.title}</h3>
-        </Link>
-    );
+    }, [AppContext.data, history]);
 
     return (
         <>
             <Header />
             <main>
                 <div className="wrap main--grid">
-                    {coursesList}
+                    {
+                        courses ?
+                        courses.map(course => 
+                            <Link key={course.id} to={'/courses/' + course.id} className="course--module course--link">
+                                <h2 className="course--label">Course</h2>
+                                <h3 className="course--title">{course.title}</h3>
+                            </Link>
+                        )
+                        : null
+                    } 
                     <Link to="/courses/create" className="course--module course--add--module">
                         <span className="course--add--title">
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
