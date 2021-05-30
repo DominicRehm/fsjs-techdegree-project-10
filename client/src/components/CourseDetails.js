@@ -4,6 +4,7 @@ import { Context } from '../Context';
 import Cookies from 'js-cookie';
 
 import Header from './Header';
+import ReactMarkdown from 'react-markdown';
 
 const CourseDetail = () => {
 
@@ -12,7 +13,6 @@ const CourseDetail = () => {
     // State
     const [courseUser, setCourseUser] = useState({});
     const [course, setCourse] = useState({});
-    const [description, setDescription] = useState();
     const [materialsNeeded, setMaterialsNeeded] = useState();
 
     // Context
@@ -29,21 +29,12 @@ const CourseDetail = () => {
         AppContext.data.deleteCourse(id, emailAddress, password);
     };
 
-    // Edit the description for a better look inside the course details
-    const editDescription = (description) => {
-        const descriptionList = description.split('\n\n');
-        const formattedDesc = descriptionList.map((desc, index) =>
-            <p key={index}>{desc}</p>
-        );
-        setDescription(formattedDesc);
-    };
-
     // Edit the materials needed for a better look inside the course details
     const editMaterials = (materials) => {
         if (materials) {
-            const materialsArray = materials.split('\n');
+            const materialsArray = materials.split(',');
             const materialsList = materialsArray.map((material, index) =>
-                <li key={index}>{material}</li>
+                <ReactMarkdown key={index} children={material} />
             );
             setMaterialsNeeded(materialsList);
         } else {
@@ -64,7 +55,6 @@ const CourseDetail = () => {
                 if (isMounted) {
                     setCourseUser(data.User);
                     setCourse(data);
-                    editDescription(data.description);
                     editMaterials(data.materialsNeeded);
                 };
             });
@@ -101,7 +91,8 @@ const CourseDetail = () => {
                             <div>
                                 <h3 className="course--detail--title">Course</h3>
                                 <h4 className="course--name">{course.title}</h4>
-                                {description}
+                                <p>By {`${courseUser.firstName} ${courseUser.lastName}`}</p>
+                                <ReactMarkdown children={course.description} />
                             </div>
                             <div>
                                 <h3 className="course--detail--title">Estimated Time</h3>
@@ -109,7 +100,7 @@ const CourseDetail = () => {
 
                                 <h3 className="course--detail--title">Materials Needed</h3>
                                 <ul className="course--detail--list">
-                                    {materialsNeeded}
+                                {materialsNeeded}
                                 </ul>
                             </div>
                         </div>

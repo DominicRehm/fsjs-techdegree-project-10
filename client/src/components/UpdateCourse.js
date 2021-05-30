@@ -15,6 +15,7 @@ const UpdateCourse = () => {
 
     // State
     const [courseTitle, setCourseTitle] = useState("");
+    const [courseAuthor, setCourseAuthor] = useState({});
     const [courseDescription, setCourseDescription] = useState("");
     const [estimatedTime, setEstimatedTime] = useState("");
     const [materialsNeeded, setMaterialsNeeded] = useState("");
@@ -96,6 +97,7 @@ const UpdateCourse = () => {
                     setCourseDescription(data.description);
                     setEstimatedTime(data.estimatedTime);
                     setMaterialsNeeded(data.materialsNeeded);
+                    setCourseAuthor(data.User);
                 }
             })
     }, [AppContext.data, id]);
@@ -126,7 +128,7 @@ const UpdateCourse = () => {
                                         <label htmlFor="courseTitle">Course Title</label>
                                         <input type="text" name="courseTitle" id="courseTitle" value={courseTitle} onChange={changeHandler}/>
 
-                                        <p>By Dominic Rehm</p>
+                                        <p>By {`${courseAuthor.firstName} ${courseAuthor.lastName}`}</p>
 
                                         <label htmlFor="courseDescription">Course Description</label>
                                         <textarea name="courseDescription" id="courseDescription" value={courseDescription} onChange={changeHandler}></textarea>

@@ -83,6 +83,11 @@ const UserSignUp = () => {
         };
     };
 
+    const cancelHandler = (e) => {
+        e.preventDefault();
+        history.push('/');
+    }
+
     const errorList = errors.flat();
 
     return (
@@ -121,7 +126,7 @@ const UserSignUp = () => {
                     <input type="password" name="confirmPassword" id="confirmPassword" />
 
                     <button type="submit" className="button">Sign Up</button>
-                    <button className="button button-secondary">Cancel</button>
+                    <button onClick={cancelHandler} className="button button-secondary">Cancel</button>
                 </form>
 
                 <p>Already have a user account? Click here to <Link to="/signin">sign in</Link>!</p>

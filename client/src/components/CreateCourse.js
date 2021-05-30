@@ -104,7 +104,7 @@ const CreateCourse = () => {
                         <label htmlFor="courseTitle">Course Title</label>
                         <input type="text" name="courseTitle" id="courseTitle" onChange={changeHandler}/>
 
-                        <p>By Dominic Rehm</p>
+                        <p>By {`${user.firstName} ${user.lastName}`}</p>
 
                         <label htmlFor="courseDescription">Course Description</label>
                         <textarea name="courseDescription" id="courseDescription" onChange={changeHandler}></textarea>
@@ -114,7 +114,7 @@ const CreateCourse = () => {
                         <input type="text" name="estimatedTime" id="estimatedTime" onChange={changeHandler}/>
 
                         <label htmlFor="materialsNeeded">Materials Needed</label>
-                        <textarea name="materialsNeeded" id="materialsNeeded" placeholder="Each material in separate line ..." onChange={changeHandler}></textarea>
+                        <textarea name="materialsNeeded" id="materialsNeeded" onChange={changeHandler}></textarea>
                     </div>
                 </div>
                 <button className="button" type="submit">Create Course</button>

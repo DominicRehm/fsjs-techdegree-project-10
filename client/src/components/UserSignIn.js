@@ -55,6 +55,11 @@ const UserSignIn = () => {
             });
     };
 
+    const cancelHandler = (e) => {
+        e.preventDefault();
+        history.push('/');
+    }
+
     return (
         <>
             <Header />
@@ -79,7 +84,7 @@ const UserSignIn = () => {
                         <input type="password" name="password" id="password" onChange={changeHandler} />
 
                         <button type="submit" className="button">Sign In</button>
-                        <button className="button button-secondary">Cancel</button>
+                        <button onClick={cancelHandler} className="button button-secondary">Cancel</button>
                     </form>
 
                     <p>Don't have a user account? Click here to <Link to="/signup">sign up</Link>!</p>
